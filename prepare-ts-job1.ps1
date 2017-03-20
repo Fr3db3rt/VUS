@@ -11,8 +11,8 @@
 # ##########################################################################################################
 
 If ((Get-PSSnapin -Name VeeamPSSnapin -ErrorAction SilentlyContinue) -eq $null) {Add-PSSnapin VeeamPSSnapin}
-If ((Get-PSSnapin -Name VeeamPSSnapin -ErrorAction SilentlyContinue) -eq $null) 
-{
+If ((Get-PSSnapin -Name VeeamPSSnapin -ErrorAction SilentlyContinue) -eq $null) {
+
 $MessageboxTitle = “Get-PSSnapin -Name VeeamPSSnapin failed error:”
 $Messageboxbody = @"
 Das Powershell SnapIn "VEEAMPSSSnapin" konnte nicht aktiviert werden.`n`n
