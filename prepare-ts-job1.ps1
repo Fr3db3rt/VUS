@@ -11,6 +11,7 @@
 # ##########################################################################################################
 
 If ((Get-PSSnapin -Name VeeamPSSnapin -ErrorAction SilentlyContinue) -eq $null) {Add-PSSnapin VeeamPSSnapin}
+Remove-PSSnapin VeeamPSSnapin
 If ((Get-PSSnapin -Name VeeamPSSnapin -ErrorAction SilentlyContinue) -eq $null) {
 
 $MessageboxTitle = “Get-PSSnapin -Name VeeamPSSnapin failed error:”
