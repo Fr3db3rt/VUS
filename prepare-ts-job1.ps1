@@ -32,6 +32,8 @@ $Form.AutoSizeMode = "GrowAndShrink"
 $Form.WindowState = "Normal"
 $Form.Opacity = 0.9
 $Form.StartPosition = "CenterScreen"
+$Form.BackColor = "Lime"
+$Form.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:WINDIR\system32\Magnify.exe")
 $Font = New-Object System.Drawing.Font("Times New Roman",18,[System.Drawing.FontStyle]::Italic)
     # Font styles are: Regular, Bold, Italic, Underline, Strikeout
 $Form.Font = $Font
