@@ -12,7 +12,7 @@
 
 If ((Get-PSSnapin -Name VeeamPSSnapin -ErrorAction SilentlyContinue) -eq $null) {Add-PSSnapin VeeamPSSnapin}
 If ((Get-PSSnapin -Name VeeamPSSnapin -ErrorAction SilentlyContinue) -eq $null) 
-
+{
 $MessageboxTitle = “Get-PSSnapin -Name VeeamPSSnapin failed error:”
 $Messageboxbody = @"
 Das Powershell SnapIn "VEEAMPSSSnapin" konnte nicht aktiviert werden.`n`n
@@ -42,7 +42,7 @@ $Label.Text = "$Messageboxbody"
 $Label.AutoSize = $True
 $Form.Controls.Add($Label)
 $Form.ShowDialog() # output object
-
+}
 # ##########################################################################################################
 
 # Get-VBRLocalhost | Get-VBRServer ### Does not work!
