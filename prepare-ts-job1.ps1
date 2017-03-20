@@ -7,46 +7,13 @@
 # We need this SnapIn for VEEAM first,
 # and we must of course stop, if it's missing
 # (GUI part with a little help from this site:)
-# http://www.martinlehmann.de/wp/download/powershell-gui-programmierung-fur-dummies-step-by-step/
+# https://blogs.technet.microsoft.com/stephap/2012/04/23/building-forms-with-powershell-part-1-the-form/
 # ##########################################################################################################
 
 If ((Get-PSSnapin -Name VeeamPSSnapin -ErrorAction SilentlyContinue) -eq $null) {Add-PSSnapin VeeamPSSnapin}
 If ((Get-PSSnapin -Name VeeamPSSnapin -ErrorAction SilentlyContinue) -eq $null) 
 
-
-# load .NET extensions
-[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing") 
-[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") 
-
-# create object
-$objForm = New-Object System.Windows.Forms.Form
-
-# object location
-$objForm.StartPosition = "CenterScreen"
-
-# object size
-$objForm.Size = New-Object System.Drawing.Size(300,200)
-
-# object title
-$objForm.Text = "Überschrift"
-
-# object text
-$objLabel = New-Object System.Windows.Forms.Label
-$objLabel.Location = New-Object System.Drawing.Size(10,50) 
-$objLabel.Size = New-Object System.Drawing.Size(100,20) 
-$objLabel.Text = "Hallo Welt"
-$objLabel.Name = "Hallo Welt"
-$objForm.Controls.Add($objLabel)
-
-# output object
-[void] $objForm.ShowDialog()
-
-
-{
-Add-Type -AssemblyName PresentationCore,PresentationFramework
-$ButtonType = [System.Windows.MessageBoxButton]::OK
 $MessageboxTitle = “Get-PSSnapin -Name VeeamPSSnapin failed error:”
-
 $Messageboxbody = @"
 Das Powershell SnapIn "VEEAMPSSSnapin" konnte nicht aktiviert werden.`n`n
 Ist die VEEAM Powershell installiert?`n`n
@@ -55,9 +22,24 @@ http://helpcenter.veeam.com/docs/backup/powershell/`n
 https://hyperv.veeam.com/blog/how-to-use-veeam-powershell-snap-in-hyper-v-backup/`n
 "@
 
-$MessageIcon = [System.Windows.MessageBoxImage]::Stop
-[System.Windows.MessageBox]::Show($Messageboxbody,$MessageboxTitle,$ButtonType,$messageicon)
-}
+# load assembly
+Add-Type -AssemblyName System.Windows.Forms
+$Form = New-Object system.Windows.Forms.Form #create object
+$Form.Text = "$MessageboxTitle" #object title
+$Form.AutoScroll = $True
+$Form.AutoSize = $True
+$Form.AutoSizeMode = "GrowAndShrink"
+$Form.WindowState = "Normal"
+$Form.Opacity = 0.9
+$Form.StartPosition = "CenterScreen"
+$Font = New-Object System.Drawing.Font("Times New Roman",18,[System.Drawing.FontStyle]::Italic)
+    # Font styles are: Regular, Bold, Italic, Underline, Strikeout
+$Form.Font = $Font
+$Label = New-Object System.Windows.Forms.Label # object text
+$Label.Text = "$Messageboxbody"
+$Label.AutoSize = $True
+$Form.Controls.Add($Label)
+$Form.ShowDialog() # output object
 
 # ##########################################################################################################
 
