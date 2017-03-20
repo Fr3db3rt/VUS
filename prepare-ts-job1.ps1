@@ -25,6 +25,7 @@ https://hyperv.veeam.com/blog/how-to-use-veeam-powershell-snap-in-hyper-v-backup
 
 # load assembly
 Add-Type -AssemblyName System.Windows.Forms
+
 $Form = New-Object system.Windows.Forms.Form #create object
 $Form.Text = "$MessageboxTitle" #object title
 $Form.AutoScroll = $True
@@ -35,15 +36,32 @@ $Form.Opacity = 0.9
 $Form.StartPosition = "CenterScreen"
 $Form.BackColor = "Lime"
 $Form.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:WINDIR\system32\Magnify.exe")
+
 $Font = New-Object System.Drawing.Font("Times New Roman",18,[System.Drawing.FontStyle]::Italic)
     # Font styles are: Regular, Bold, Italic, Underline, Strikeout
 $Form.Font = $Font
+###$Form.FormBorderStyle=[System.Windows.Forms.FormBorderStyle]::Fixed3D
+
 $Label = New-Object System.Windows.Forms.Label # object text
 $Label.Text = "$Messageboxbody"
 $Label.AutoSize = $True
 $Form.Controls.Add($Label)
+
+##$OKButton = New-Object System.Windows.Forms.Button
+##$OKButton.Location = New-Object System.Drawing.Point(75,120)
+##$OKButton.Size = New-Object System.Drawing.Size(75,23)
+##$OKButton.Text = "OK"
+##$OKButton.DialogResult = [System.Windows.Forms.DialogResult]::OK
+##$form.AcceptButton = $OKButton
+##$form.Controls.Add($OKButton)
+
 $Form.ShowDialog() # output object
 }
+
+
+exit
+
+
 # ##########################################################################################################
 
 # Get-VBRLocalhost | Get-VBRServer ### Does not work!
@@ -83,3 +101,5 @@ Find-VBRHvEntity -Name "$env:computername" | Add-VBRHvJobObject -Job $backupjob
 Find-VBRHvEntity -Server "$env:computername" | Add-VBRHvJobObject -Job $backupjob
 Get-VBRJob -Name "1 - Wochenrepository" | fl
 Get-VBRJob -Name "2 - Tagesrepository" | Set-VBRJobAdvancedBackupOptions -Algorithm ReverseIncremental -EnableFullBackup:$true -FullBackupScheduleKind Daily -FullBackupDays Friday
+
+
